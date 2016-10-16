@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% load bootstrap3 %}
+
+{% block title %}История{% endblock %}
+
+{% block content %}
+
+    <table class="table">
+        <tr>
+            <th>#</th>
+            <th>url</th>
+            <th>ctime</th>
+        </tr>
+        {% for line in lines %}
+            <tr>
+                <td>
+                    {{ line.id }}
+                </td>
+                <td>
+                    <a href="https://avito.ru{{ line.url }}">{{ line.url }}</a>
+                </td>
+                <td>
+                    {{ line.ctime }}
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <hr>
+
+    {% bootstrap_pagination lines url="/viewed?page=1" size="small" %}
+
+{% endblock %}

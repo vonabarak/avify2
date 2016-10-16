@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% load bootstrap3 %}
+
+{% block title %}Прокси{% endblock %}
+
+{% block content %}
+
+    <form role="form" class="form-horizontal" method="post">
+        {% csrf_token %}
+        {% bootstrap_form form layout="horizontal" %}
+        {% buttons submit='Добавить' reset='Отмена' layout='horizontal' %}{% endbuttons %}
+    </form>
+    <table class="table">
+        <tr>
+            <th>#</th>
+            <th>name</th>
+            <th>port</th>
+            <th>priority</th>
+        </tr>
+        {% for line in lines %}
+            <tr>
+                <td>{{ line.id }}</td>
+                <td>
+                    <a href="{% url 'proxies' %}?check={{ line.id }}">{{ line.name }}</a>
+                    <a class="edit_link" href="{% url 'proxies' %}?delete={{ line.id }}"><span>удалить</span></a>
+                </td>
+                <td>{{ line.port }}</td>
+                <td>{{ line.priority }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <hr>
+
+    {% bootstrap_pagination lines url="/proxies?page=1" size="small" %}
+
+{% endblock %}

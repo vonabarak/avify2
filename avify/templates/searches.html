@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% load bootstrap3 %}
+
+{% block title %}Шаблоны поиска{% endblock %}
+
+{% block content %}
+
+    <form role="form" class="form-horizontal" method="post">
+        {% csrf_token %}
+        {% bootstrap_form form layout="horizontal" %}
+        {% buttons submit='Добавить' reset='Отмена' layout='horizontal' %}{% endbuttons %}
+    </form>
+    <table class="table">
+        <tr>
+            <th>#</th>
+            <th>cathegory</th>
+            <th>keywords</th>
+            <th>price min</th>
+            <th>price max</th>
+            <th>user</th>
+        </tr>
+        {% for line in lines %}
+            <tr>
+                <td>
+                    {{ line.id }}
+                    <a class="edit_link" href="{% url 'searches' %}?delete={{ line.id }}"><span>удалить</span></a>
+                </td>
+                <td>{{ line.cathegory.name }}</td>
+                <td>{{ line.keywords }}</td>
+                <td>{{ line.price_min }}</td>
+                <td>{{ line.price_max }}</td>
+                <td>{{ line.user.username }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <hr>
+
+    {% bootstrap_pagination lines url="/searches?page=1" size="small" %}
+
+{% endblock %}

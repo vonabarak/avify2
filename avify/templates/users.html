@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% load bootstrap3 %}
+
+{% block title %}Пользователи{% endblock %}
+
+{% block content %}
+
+    <table class="table">
+            <tr>
+                <th>#</th>
+                <th>name</th>
+                <th>description</th>
+            </tr>
+        {% for line in lines %}
+            <tr>
+                <td>{{ line.tgid }}</td>
+                <td>
+                    {{ line.username }}
+{#                    <a href="{% url 'sendmessage' %}?id={{line.id}}">{{ line.name }}</a>#}
+{#                    <a class="edit_link" href="{% url 'edituser' %}?id={{ line.id }}"><span>редактировать</span></a>#}
+                </td>
+                <td>{{ line.first_name }} {{ line.last_name }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <hr>
+
+    {% bootstrap_pagination lines url="/users?page=1" extra="q=foo" size="small" %}
+
+{% endblock %}

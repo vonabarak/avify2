@@ -1,0 +1,9 @@
+
+.edit_link:link span, .edit_link:visited span {
+    visibility: hidden;
+    font-size: xx-small;
+}
+.edit_link:link:hover span, .edit_link:visited:hover span {
+    visibility: visible;
+    font-size: xx-small;
+}

@@ -1,0 +1,52 @@
+{% extends 'bootstrap.html' %}
+
+{% load staticfiles %}
+{% load bootstrap3 %}
+{% block bootstrap3_content %}
+{% load tags %}
+<link href="{% static 'css/notifier.css' %}" rel="stylesheet">
+<nav class="navbar navbar-static-top">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main_nav">
+        <span class="sr-only">Toggle navigation</span>
+          <div style="font-size: x-large;"> &#9776; </div>
+      </button>
+    <a class="navbar-brand" href="/">
+        <span class='tip-on-hover'><img src="{% static '/avify.png'%}" style='margin-top: -13px'>
+            <span class='tip'></span>
+        </span>
+        <span style="font-size:30px; font-weight:bold; color: darkblue">AVIFY</span>
+    </a>
+    </div>
+    <div class="navbar-collapse collapse" id='main_nav'>
+    {% url 'proxies' as proxies %}
+    {% url 'users' as users %}
+    {% url 'cathegories' as cathegories %}
+    {% url 'searches' as searches %}
+    {% url 'viewed' as viewed %}
+    <ul class="nav navbar-nav">
+        <li class={% active request proxies %}><a href="{{ proxies }}">Список прокси</a></li>
+        <li class={% active request cathegories %}><a href="{{ cathegories }}">Категории поиска</a></li>
+        <li class={% active request searches %}><a href="{{ searches }}">Шаблоны поиска</a></li>
+        <li class={% active request users %}><a href="{{ users }}">Пользователи</a></li>
+        <li class={% active request viewed %}><a href="{{ viewed }}">История</a></li>
+    </ul>
+
+{#    <ul class="nav navbar-nav navbar-right hidden-lg hidden-md">#}
+{#        <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">#}
+{#            Меню#}
+{#        </a><ul class="dropdown-menu" role="menu">#}
+{#        </ul>#}
+{#        </li>#}
+{#    </ul>#}
+    </div>
+
+        {% bootstrap_messages %}
+        {#<h1>{% block title %}(no title){% endblock %}</h1>#}
+
+</nav>
+    <div class="container">
+        {% block content %}(no content){% endblock %}
+    </div>
+
+{% endblock %}
