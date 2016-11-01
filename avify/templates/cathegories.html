@@ -19,10 +19,12 @@
         </tr>
         {% for line in lines %}
             <tr>
-                <td>{{ line.id }}</td>
                 <td>
-                    {{ line.name }}
+                    {{ line.id }}
                     <a class="edit_link" href="{% url 'cathegories' %}?delete={{ line.id }}"><span>удалить</span></a>
+                </td>
+                <td>
+                    <a href="{% url 'searches' %}?cathegory={{ line.id }}">{{ line.name }}</a>
                 </td>
                 <td>{{ line.url }}</td>
             </tr>

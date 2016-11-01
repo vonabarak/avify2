@@ -12,8 +12,6 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 
 
-
-
 def normalize_price(text):
     try:
         return float(''.join([ch for ch in text if ch.isdigit()]))
@@ -33,7 +31,7 @@ class Parser:
             logger.info(u'Cathegory: {0}'.format(cath.name))
             for p in self.proxies:
                 try:
-                    #print(u'Trying proxy {}'.format(p))
+                    # print(u'Trying proxy {}'.format(p))
                     r = requests.get(cath.url, proxies={'https': str(p)})
                     if r.status_code == requests.codes.ok:
                         parsed_body = BeautifulSoup(r.text, 'html.parser')

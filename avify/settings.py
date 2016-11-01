@@ -151,4 +151,4 @@ BOOTSTRAP3 = {
         'inline': 'bootstrap3.renderers.InlineFieldRenderer',
     },
 }
-TELEGRAM_TOKEN='TOKEN HERE'
+TELEGRAM_TOKEN = 'TOKEN HERE'

@@ -173,7 +173,12 @@ class SearchesView(FormView, PaginationMixin):
     def get_context_data(self, **kwargs):
         context = super(self.__class__, self).get_context_data(**kwargs)
         # context['form'] = self.get_form()
-        self.lines = Search.objects.all().order_by('-id')
+        cathergory = int(self.request.GET.get('cathegory', '0'))
+        context['cathegory'] = str(cathergory)
+        if cathergory:
+            self.lines = Search.objects.filter(cathegory_id=cathergory)
+        else:
+            self.lines = Search.objects.all().order_by('-id')
         self.add_paginator(context)
         return context
 
