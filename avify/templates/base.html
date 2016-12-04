@@ -19,30 +19,38 @@
     </a>
     </div>
     <div class="navbar-collapse collapse" id='main_nav'>
-    {% url 'proxies' as proxies %}
-    {% url 'users' as users %}
-    {% url 'cathegories' as cathegories %}
     {% url 'searches' as searches %}
     {% url 'viewed' as viewed %}
     <ul class="nav navbar-nav">
-        <li class={% active request proxies %}><a href="{{ proxies }}">Список прокси</a></li>
-        <li class={% active request cathegories %}><a href="{{ cathegories }}">Категории поиска</a></li>
-        <li class={% active request searches %}><a href="{{ searches }}">Шаблоны поиска</a></li>
-        <li class={% active request users %}><a href="{{ users }}">Пользователи</a></li>
-        <li class={% active request viewed %}><a href="{{ viewed }}">История</a></li>
+        <li class={% active request searches %}><a href="{{ searches }}">Search templates</a></li>
+        <li class={% active request viewed %}><a href="{{ viewed }}">Viewed items</a></li>
     </ul>
 
-{#    <ul class="nav navbar-nav navbar-right hidden-lg hidden-md">#}
-{#        <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">#}
-{#            Меню#}
-{#        </a><ul class="dropdown-menu" role="menu">#}
-{#        </ul>#}
-{#        </li>#}
-{#    </ul>#}
+    <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+        {% if user.is_authenticated %}
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Hello, <strong>{{ user.username }}</strong>!
+            </a>
+            <ul class="dropdown-menu" role="menu">
+                <li class="divider"></li>
+                {% if request.user.is_staff %}
+                    <li><a href="{% url 'admin:index' %}">Admin panel</a></li>
+                    <li><a href="{% url 'users' %}">Users</a></li>
+                    <li><a href="{% url 'broadcast' %}">Broadcast message</a></li>
+                    <li class="divider"></li>
+                {% endif %}
+                <li><a href="{% url 'logout' %}">Logout</a></li>
+                <li class="divider"></li>
+            </ul>
+        {% else %}
+            <a href="{% url 'home' %}">Hello, guest!</a>
+        {% endif %}
+        </li>
+    </ul>
     </div>
 
         {% bootstrap_messages %}
-        {#<h1>{% block title %}(no title){% endblock %}</h1>#}
 
 </nav>
     <div class="container">

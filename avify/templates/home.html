@@ -1,8 +1,16 @@
 {% extends 'base.html' %}
+{% load bootstrap3 %}
 
 {% block title %}AVIFY{% endblock %}
 
 {% block content %}
-<!-- <strong> Стартовая страничка </strong> -->
+    {% if not user.is_authenticated %}
+        <form role="form" class="form-horizontal" method="post">
+            {% csrf_token %}
+            {% bootstrap_form form layout="horizontal" %}
+            {% buttons submit='Login' layout='horizontal' %}{% endbuttons %}
+        </form>
+    {% endif %}
+    Fortune of the day:
     <pre>{{ fortune }}</pre>
 {% endblock %}

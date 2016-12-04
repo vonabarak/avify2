@@ -5,22 +5,28 @@
 {% block title %}Пользователи{% endblock %}
 
 {% block content %}
+    {% if edit_user %}
+    <form role="form" class="form-horizontal" method="post">
+        {% csrf_token %}
+        {% bootstrap_form form layout="horizontal" %}
+        {% buttons submit='Submit' layout='horizontal' %}{% endbuttons %}
+    </form>
+    {% endif %}
 
     <table class="table">
             <tr>
                 <th>#</th>
                 <th>name</th>
-                <th>description</th>
+                <th>actions</th>
             </tr>
         {% for line in lines %}
             <tr>
                 <td>{{ line.tgid }}</td>
+                <td>{{ line.username }}</td>
                 <td>
-                    {{ line.username }}
-{#                    <a href="{% url 'sendmessage' %}?id={{line.id}}">{{ line.name }}</a>#}
-{#                    <a class="edit_link" href="{% url 'edituser' %}?id={{ line.id }}"><span>редактировать</span></a>#}
+                    <a class="btn btn-default" href="{% url 'users' %}?edit_user={{ line.id }}">Edit</a>
+                    <a class="btn btn-default" href="{% url 'users' %}?login_as_user={{ line.id }}">Login as user</a>
                 </td>
-                <td>{{ line.first_name }} {{ line.last_name }}</td>
             </tr>
         {% endfor %}
     </table>

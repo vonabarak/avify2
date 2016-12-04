@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand  # CommandError
-from avify.parse import Parser
+from avify.restapp import Restapp
 
 
 class Command(BaseCommand):
@@ -7,5 +7,5 @@ class Command(BaseCommand):
     help = ''
 
     def handle(self, *args, **kwargs):
-        Parser().get_items()
+        Restapp().do_the_job()
 
